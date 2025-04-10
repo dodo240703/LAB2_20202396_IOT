@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnSoftware"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Software" />
+
+    <Button
+        android:id="@+id/btnCiberseguridad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ciberseguridad"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnOpticas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ópticas"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
