@@ -83,6 +83,21 @@ public class TeleMemoActivity extends AppCompatActivity {
         // Inicializar temporizador
         tiempoInicio = SystemClock.elapsedRealtime();
         actualizarIntentos();
+
+        Button btnNuevoJuego = findViewById(R.id.btnNuevoJuego);
+        btnNuevoJuego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registrarEstadistica(false, (SystemClock.elapsedRealtime() - tiempoInicio)/1000, intentos);
+                Intent intent = new Intent(TeleMemoActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+
     }
 
     private String seleccionarOracion(String tema) {
@@ -164,6 +179,8 @@ public class TeleMemoActivity extends AppCompatActivity {
     }
 
     private void registrarEstadistica(boolean gano, long tiempo, int intentos) {
+        Resultado resultado = new Resultado(tema, true, gano, tiempo, intentos);
+        StatisticsManager.getInstance().agregarResultado(resultado);
     }
 
     // Manejo del menú de la AppBar o Popup para estadísticas
