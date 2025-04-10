@@ -54,17 +54,13 @@ public class TeleMemoActivity extends AppCompatActivity {
         tvIntentos = findViewById(R.id.tvIntentos);
         tvTemporizador = findViewById(R.id.tvTemporizador);
 
-        // Recuperar la temática del Intent
         tema = getIntent().getStringExtra("tema");
 
-        // Seleccionar aleatoriamente una oración de la temática
         oracionSeleccionada = seleccionarOracion(tema);
 
-        // Dividir la oración en palabras
         palabrasOracion = new ArrayList<>();
         Collections.addAll(palabrasOracion, oracionSeleccionada.split(" "));
 
-        // Mezclar las palabras para mostrarlas en orden aleatorio
         List<String> palabrasMezcladas = new ArrayList<>(palabrasOracion);
         Collections.shuffle(palabrasMezcladas);
 
@@ -89,7 +85,6 @@ public class TeleMemoActivity extends AppCompatActivity {
         actualizarIntentos();
     }
 
-    // Método para seleccionar la oración según el tema
     private String seleccionarOracion(String tema) {
         switch (tema) {
             case "Opticas":
@@ -104,17 +99,13 @@ public class TeleMemoActivity extends AppCompatActivity {
         }
     }
 
-    // Procesar la selección de la palabra
     private void procesarSeleccion(Button btnPalabra) {
         if (juegoTerminado) return;
         String palabraSeleccionada = btnPalabra.getText().toString();
-        // Validar si la palabra seleccionada es la siguiente correcta
         if (palabraSeleccionada.equals(palabrasOracion.get(indicePalabraActual))) {
-            // Marca la palabra como correcta (deshabilitar el botón o cambiar color)
             btnPalabra.setEnabled(false);
             btnPalabra.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
             indicePalabraActual++;
-            // Verificar si se completó la oración
             if (indicePalabraActual == palabrasOracion.size()) {
                 juegoTerminado = true;
                 long tiempoFinal = SystemClock.elapsedRealtime();
@@ -122,7 +113,6 @@ public class TeleMemoActivity extends AppCompatActivity {
                 mostrarResultado(true, tiempoJuego);
             }
         } else {
-            // Secuencia incorrecta: reiniciar selección
             Toast.makeText(this, "Secuencia incorrecta. Intentos restantes: " + (MAX_INTENTOS - intentos - 1), Toast.LENGTH_SHORT).show();
             reiniciarSelecciones();
             intentos++;
@@ -137,7 +127,6 @@ public class TeleMemoActivity extends AppCompatActivity {
     }
 
     private void reiniciarSelecciones() {
-        // Reiniciar botones (habilitarlos y restaurar color)
         for (Button btn : botonesPalabras) {
             btn.setEnabled(true);
             btn.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
@@ -149,7 +138,6 @@ public class TeleMemoActivity extends AppCompatActivity {
         tvIntentos.setText("Intentos: " + (MAX_INTENTOS - intentos));
     }
 
-    // Mostrar pantalla de resultado
     private void mostrarResultado(boolean gano, long tiempoJuego) {
         String mensaje;
         if (gano) {
@@ -176,9 +164,6 @@ public class TeleMemoActivity extends AppCompatActivity {
     }
 
     private void registrarEstadistica(boolean gano, long tiempo, int intentos) {
-        // Aquí se puede guardar en una base de datos local (SQLite o SharedPreferences) o en un ArrayList global.
-        // Por simplicidad, se puede utilizar SharedPreferences o una clase singleton que almacene el historial.
-        // Ejemplo: StatisticsManager.getInstance().agregarResultado(new Resultado(tema, gano, tiempo, intentos));
     }
 
     // Manejo del menú de la AppBar o Popup para estadísticas
@@ -198,14 +183,12 @@ public class TeleMemoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Es recomendable implementar onSaveInstanceState para guardar el estado del juego
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("indicePalabraActual", indicePalabraActual);
         outState.putInt("intentos", intentos);
         outState.putLong("tiempoInicio", tiempoInicio);
-        // Otros datos relevantes del juego.
     }
 
     @Override
