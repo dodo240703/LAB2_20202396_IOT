@@ -37,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
                 iniciarJuego("Opticas");
             }
         });
+        Button btnVerHistorial = findViewById(R.id.btnVerHistorial);
+        btnVerHistorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, StatisticsActivity.class));
+            }
+        });
 
     }
 

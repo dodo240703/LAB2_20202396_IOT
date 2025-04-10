@@ -24,4 +24,9 @@ public class Resultado {
             return tema + ": Perdió en " + tiempo + "s";
         }
     }
+
+    @Override
+    public String toString() {
+        return getResumen();
+    }
 }
